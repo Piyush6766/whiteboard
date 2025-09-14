@@ -11,10 +11,23 @@ const app = express();
 const httpServer = createServer(app);
 
 // Middleware
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://whiteboard-eta-one.vercel.app" 
+];
+
 app.use(cors({
-  origin: process.env.CLIENT_URL || "https://whiteboard-eta-one.vercel.app/",
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      console.log("❌ Blocked by CORS:", origin);
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
   credentials: true
 }));
+
 app.use(express.json());
 
 // Simple Room Schema (if you want to use MongoDB)
