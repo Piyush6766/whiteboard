@@ -1,4 +1,3 @@
-// server/models/Room.js
 import mongoose from 'mongoose';
 
 const DrawingCommandSchema = new mongoose.Schema({

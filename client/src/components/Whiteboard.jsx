@@ -1,4 +1,3 @@
-// client/src/components/Whiteboard.jsx
 import React from 'react';
 import { useState, useCallback } from 'react';
 import DrawingCanvas from './DrawingCanvas';
@@ -88,10 +87,10 @@ const Whiteboard = ({ socket, roomId }) => {
           onUserLeft={handleUserLeft}
         />
 
-        {/* User Cursors Overlay */}
+        {/* User Cursors  */}
         <UserCursors cursors={cursors} />
 
-        {/* Canvas Info Overlay */}
+        {/* Canvas Info  */}
         <div className="absolute top-4 right-4 bg-black bg-opacity-75 text-white px-3 py-2 rounded-md text-sm">
           <div className="flex items-center space-x-4">
             <span>Room: {roomId}</span>

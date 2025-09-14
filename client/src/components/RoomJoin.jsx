@@ -1,4 +1,3 @@
-// client/src/components/RoomJoin.jsx
 import React from 'react';
 import { useState } from 'react';
 
@@ -29,7 +28,6 @@ const RoomJoin = ({ onJoinRoom, isConnected }) => {
   };
 
   const handleInputChange = (e) => {
-    // Convert to uppercase and limit length
     const value = e.target.value.toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0, 8);
     setRoomId(value);
   };

@@ -1,4 +1,3 @@
-// client/src/hooks/useSocket.js
 import { useEffect, useRef, useState } from 'react';
 import { io } from 'socket.io-client';
 
@@ -16,7 +15,7 @@ export const useSocket = (serverUrl) => {
     socketRef.current = io(serverUrl, {
       transports: ['polling', 'websocket'], // Try polling first, then websocket
       timeout: 20000,
-      forceNew: false, // Allow reuse of existing connection
+      forceNew: false, 
       autoConnect: true,
       reconnection: true,
       reconnectionDelay: 1000,

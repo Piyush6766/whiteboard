@@ -1,4 +1,3 @@
-// client/src/components/Toolbar.jsx
 import React, { useState } from 'react';
 
 const Toolbar = ({

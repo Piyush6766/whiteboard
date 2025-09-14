@@ -1,4 +1,3 @@
-// client/src/components/UserCursors.jsx
 import React from 'react';
 import { useMemo } from 'react';
 

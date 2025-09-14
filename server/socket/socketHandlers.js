@@ -1,4 +1,3 @@
-// server/socket/socketHandlers.js
 import Room from '../models/Room.js';
 
 // Store user sessions in memory

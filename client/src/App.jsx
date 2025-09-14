@@ -1,4 +1,3 @@
-// client/src/App.jsx
 import React from 'react';
 import { useState, useEffect } from 'react';
 import RoomJoin from './components/RoomJoin';
@@ -71,7 +70,7 @@ function App() {
       // If API call successful, join via socket
       socket.emit('join-room', {
         roomId: data.roomId,
-        userId: `user-${Date.now()}` // Simple user ID generation
+        userId: `user-${Date.now()}`
       });
 
     } catch (err) {

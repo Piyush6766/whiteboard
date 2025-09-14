@@ -1,4 +1,3 @@
-// client/src/components/DrawingCanvas.jsx
 import React, { useRef, useEffect, useState, useCallback } from "react";
 
 const DrawingCanvas = ({
@@ -119,7 +118,7 @@ const DrawingCanvas = ({
     restPoints.forEach((point) => context.lineTo(point.x, point.y));
 
     context.stroke();
-    context.globalCompositeOperation = "source-over"; // reset after drawing
+    context.globalCompositeOperation = "source-over"; 
   }, []);
 
   // Get coordinates relative to canvas
