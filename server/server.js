@@ -27,7 +27,7 @@ const RoomSchema = new mongoose.Schema({
 
 const Room = mongoose.model('Room', RoomSchema);
 
-// MongoDB connection (optional - you can comment this out if you don't have MongoDB yet)
+// MongoDB connection 
 const connectDB = async () => {
   try {
     if (process.env.MONGODB_URI) {

@@ -10,7 +10,7 @@ function App() {
   const [userCount, setUserCount] = useState(0);
   const [error, setError] = useState(null);
 
-  const { socket, isConnected: socketConnected } = useSocket('http://localhost:5000');
+  const { socket, isConnected: socketConnected } = useSocket('https://whiteboard-c3q8.onrender.com');
 
   useEffect(() => {
     if (!socket) return;
@@ -53,7 +53,7 @@ function App() {
 
     try {
       // First, validate room with API
-      const response = await fetch(`http://localhost:5000/api/rooms/join`, {
+      const response = await fetch(`https://whiteboard-c3q8.onrender.com/api/rooms/join`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
