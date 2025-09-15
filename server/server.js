@@ -11,24 +11,27 @@ dotenv.config();
 const app = express();
 const httpServer = createServer(app);
 
-// ✅ Allowed Origins (both local + production)
+// ✅ Allowed Origins (local + production)
 const allowedOrigins = [
   "http://localhost:5173",
-  "https://whiteboard-sand-mu.vercel.app" // ✅ Your Vercel frontend
+  "https://whiteboard-sand-mu.vercel.app", // ✅ fixed (removed trailing slash)
 ];
 
 // ✅ Global Middleware
-app.use(cors({
-  origin: (origin, callback) => {
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      console.log("❌ Blocked by CORS:", origin);
-      callback(new Error("Not allowed by CORS"));
-    }
-  },
-  credentials: true
-}));
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        console.log("❌ Blocked by CORS:", origin);
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    credentials: true,
+  })
+);
+
 app.use(express.json());
 
 // ✅ MongoDB Setup
@@ -57,17 +60,17 @@ const connectDB = async () => {
 
 connectDB();
 
-// ✅ Socket.IO Setup with correct CORS for Render
+// ✅ Socket.IO Setup
 const io = new Server(httpServer, {
   cors: {
-    origin: process.env.CLIENT_URL || allowedOrigins,
+    origin: allowedOrigins, // ✅ now correctly allows both local + vercel
     methods: ["GET", "POST"],
     credentials: true,
   },
   transports: ["websocket", "polling"],
 });
 
-// ✅ In-Memory Data Structures
+// ✅ In-Memory Data
 const rooms = new Map();
 const userSessions = new Map();
 const roomDrawings = new Map();
@@ -79,11 +82,9 @@ io.on("connection", (socket) => {
     try {
       const normalizedRoomId = roomId.toUpperCase().trim();
 
-      // Leave previous room if any
       const prevSession = userSessions.get(socket.id);
       if (prevSession) await leaveRoom(socket, prevSession.roomId);
 
-      // Join new room
       socket.join(normalizedRoomId);
       if (!rooms.has(normalizedRoomId)) {
         rooms.set(normalizedRoomId, new Set());
@@ -98,12 +99,10 @@ io.on("connection", (socket) => {
 
       const userCount = rooms.get(normalizedRoomId).size;
 
-      // Send existing drawings to new user
       socket.emit("drawing-data", {
         drawingData: roomDrawings.get(normalizedRoomId) || [],
       });
 
-      // Notify others
       io.to(normalizedRoomId).emit("room-joined", {
         roomId: normalizedRoomId,
         userCount,
@@ -113,7 +112,6 @@ io.on("connection", (socket) => {
 
       console.log(`👤 User joined room ${normalizedRoomId} (${userCount} users)`);
 
-      // Update DB if available
       if (mongoose.connection.readyState === 1) {
         await Room.findOneAndUpdate(
           { roomId: normalizedRoomId },
@@ -131,10 +129,9 @@ io.on("connection", (socket) => {
     const session = userSessions.get(socket.id);
     if (!session) return;
     socket.to(session.roomId).emit("cursor-update", {
+      ...data,
       userId: session.userId,
       socketId: socket.id,
-      x: data.x,
-      y: data.y,
       timestamp: Date.now(),
     });
   });
