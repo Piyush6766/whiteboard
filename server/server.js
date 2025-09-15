@@ -1,14 +1,14 @@
-// server.js
-import express from "express";
-import http from "http";
-import { Server } from "socket.io";
-import cors from "cors";
-import dotenv from "dotenv";
+import express from 'express';
+import { createServer } from 'http';
+import { Server } from 'socket.io';
+import cors from 'cors';
+import mongoose from 'mongoose';
+import dotenv from 'dotenv';
 
 dotenv.config();
 
 const app = express();
-const httpServer = http.createServer(app);
+const httpServer = createServer(app);
 
 // ✅ Allowed Origins - Local + Production
 const allowedOrigins = [
@@ -36,6 +36,7 @@ app.use(express.json());
 app.get("/api/health", (req, res) => {
   res.status(200).json({ status: "OK", message: "Server is running ✅" });
 });
+
 
 // ✅ Socket.IO Setup with CORS
 const io = new Server(httpServer, {

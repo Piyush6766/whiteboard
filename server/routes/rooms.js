@@ -1,10 +1,10 @@
 import express from 'express';
-import Room from '../models/Room.js';
+import Room from './routes/rooms.js';
 
 const router = express.Router();
 
 // POST /api/rooms/join - Join or create a room
-router.post('/join', async (req, res) => {
+router.post('/api/rooms/join', async (req, res) => {
   try {
     const { roomId } = req.body;
 
