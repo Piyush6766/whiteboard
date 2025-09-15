@@ -14,7 +14,7 @@ const httpServer = createServer(app);
 // ✅ Allowed Origins (both local + production)
 const allowedOrigins = [
   "http://localhost:5173",
-  "https://whiteboard-sand-mu.vercel.app/" // ✅ Your Vercel frontend
+  "https://whiteboard-sand-mu.vercel.app" // ✅ Your Vercel frontend
 ];
 
 // ✅ Global Middleware
