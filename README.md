@@ -115,14 +115,14 @@ collaborative-whiteboard/
    ```bash
    # From server directory
    cd server
-   npm run both
+   npm run dev
    ```
    
    **Option 2: Run separately**
    ```bash
    # Terminal 1 - Server
    cd server
-   npm run dev
+   npm start
    
    # Terminal 2 - Client
    cd client
@@ -252,7 +252,7 @@ Get room information.
 1. **Local Development**:
    ```bash
    # Server
-   cd server && npm run dev
+   cd server && npm start
    
    # Client
    cd client && npm run dev
@@ -276,29 +276,9 @@ Get room information.
    ```
 
 3. **Deploy Options**:
-   - **Heroku**: Use provided Procfile
    - **Vercel/Netlify**: For client deployment
-   - **DigitalOcean/AWS**: For full-stack deployment
-   - **Docker**: Use provided Dockerfile
+   - **DigitalOcean/AWS**: For full-stack deploymet
 
-### Docker Deployment (Optional)
-
-1. **Create Dockerfile** (server):
-   ```dockerfile
-   FROM node:18-alpine
-   WORKDIR /app
-   COPY package*.json ./
-   RUN npm ci --only=production
-   COPY . .
-   EXPOSE 5000
-   CMD ["npm", "start"]
-   ```
-
-2. **Build and run**:
-   ```bash
-   docker build -t whiteboard-server .
-   docker run -p 5000:5000 --env-file .env whiteboard-server
-   ```
 
 ## 🧪 Testing
 
@@ -391,12 +371,5 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 - Tailwind CSS for styling utilities
 
 ---
-
-## 📞 Support
-
-For issues and questions:
-- Create an issue on GitHub
-- Check the troubleshooting section
-- Review the API documentation
 
 **Happy Collaborating! 🎨**
